@@ -170,7 +170,7 @@ run-sim: $(SIM_BINARY_CONTAINER) $(delivered_sim_inputs) $(emconfig)
         +device_index=0 \
         +binary_file=$(SIM_BINARY_CONTAINER) \
     +permissive-off \
-    +prog0=$(RISCV)/riscv64-unknown-elf/share/riscv-tests/isa/rv64ui-p-simple </dev/null
+    +prog0=rv64ui-p-simple </dev/null
 
 
 .PHONY: clean
