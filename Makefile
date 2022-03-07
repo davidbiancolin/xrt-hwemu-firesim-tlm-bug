@@ -155,7 +155,7 @@ $(SIM_RUN_DIR)/%: $(DRIVER_DIR)/%
 # batch = waves dumped at the end of simulation
 # gui   = interactive session, with a GUI launched at time 0
 # none  = no waves
-DEBUG_MODE ?= none
+DEBUG_MODE ?= gui
 
 .PHONY: run-sim
 run-sim: $(SIM_BINARY_CONTAINER) $(delivered_sim_inputs) $(emconfig)
@@ -163,7 +163,7 @@ run-sim: $(SIM_BINARY_CONTAINER) $(delivered_sim_inputs) $(emconfig)
 	@echo "[Emulation]"                                            >  $(SIM_RUN_DIR)/xrt.ini
 	@echo "user_pre_sim_script=../../scripts/xsim-setup-waves.tcl" >> $(SIM_RUN_DIR)/xrt.ini
 	@echo "debug_mode=$(DEBUG_MODE)"                               >> $(SIM_RUN_DIR)/xrt.ini # wave dump at end
-	cd $(SIM_RUN_DIR) && XCL_EMULATION_MODE=hw_emu ./$(driver_bin) \
+	cd $(SIM_RUN_DIR) && XCL_EMULATION_MODE=hw_emu LD_LIBRARY_PATH=$(SIM_RUN_DIR):$(LD_LIBRARY_PATH) ./$(driver_bin) \
     +permissive \
 		$(shell cat $(SIM_RUN_DIR)/$(runtime_conf)) \
         +fesvr-step-size=128 \
